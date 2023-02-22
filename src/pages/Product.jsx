@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 
 function Product() {
@@ -66,7 +65,7 @@ function Product() {
     },
   ];
 
-  let id = useParams().id;
+  let { id } = useParams();
 
   function p() {
     // find in array where id = params.id
@@ -75,13 +74,16 @@ function Product() {
     return filtered_array[0];
   }
 
+  // Optimised one
+  const pp = products.filter((product) => product.id == id)[0];
+
   return (
     <>
-      <section className="bg-red-800" style={{ backgroundImage: "url(" + p().imglink, backgroundSize: "cover", backgroundPosition: "center" }}>
+      <section className="bg-red-800" style={{ backgroundImage: "url(" + pp.imglink, backgroundSize: "cover", backgroundPosition: "center" }}>
         <div className="w-4/5 mx-auto py-56 flex items-center">
           <div className="-mb-96 bg-gray-900 text-white bg-opacity-60 py-10 px-8">
-            <h1 className="text-6xl ">$ {p().price}</h1>
-            <h1 className="text-9xl ">{p().title}</h1>
+            <h1 className="text-6xl ">$ {pp.price}</h1>
+            <h1 className="text-9xl ">{pp.title}</h1>
           </div>
         </div>
       </section>
