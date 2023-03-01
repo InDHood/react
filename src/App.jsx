@@ -6,6 +6,7 @@ import Layout from "./components/Layout";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
+import Todo from "./pages/Todo";
 import Product from "./pages/Product";
 import NoPage from "./pages/404";
 
@@ -17,6 +18,7 @@ export default function App() {
           <Route index path="" element={<Home />} />
           <Route path="about" element={<About />} />
           <Route path="contact" element={<Contact />} />
+          <Route path="todo" element={<Todo />} />
           <Route path="product/:id" element={<Product />} />
           <Route path="*" element={<NoPage />} />
         </Route>

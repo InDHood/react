@@ -18,6 +18,9 @@ const Header = () => {
           <Link to="/contact" className="hover:text-red-600 cursor-pointer">
             CONTACT
           </Link>
+          <Link to="/todo" className="hover:text-red-600 cursor-pointer">
+            TODO
+          </Link>
         </nav>
       </div>
     </header>
