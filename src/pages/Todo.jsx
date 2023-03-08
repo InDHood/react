@@ -27,27 +27,33 @@ export default function Todo() {
 
   const [showPopup, setShowPopup] = useState(false);
   const [todoData, setTodoData] = useState(todos);
+  const [msg, setMsg] = useState("");
 
   const submitHandler = (e) => {
     e.preventDefault();
+    setMsg("");
 
     const form = new FormData(e.target);
     const formData = Object.fromEntries(form.entries());
-        
+
     let newData = {
       id: todoData.length + 1,
       label: formData.todo,
       status: "NOT DONE",
     };
-    
+
+    let check = todoData.filter((todo) => todo.label == newData.label);
+    if (check.length) {
+      setMsg("Task already exist");
+      return;
+    }
+
     setTodoData([...todoData, newData]);
     setShowPopup(false);
     // console.log(formData);
     // console.log(e);
     // console.log(e.target[0].value);
   };
-
-
 
   const mark = (id) => {
     let todos = todoData.map((t) => ({ ...t, status: t.id == id ? "DONE" : t.status }));
@@ -57,14 +63,15 @@ export default function Todo() {
     let todos = todoData.map((t) => ({ ...t, status: t.id == id ? "NOT DONE" : t.status }));
     setTodoData([...todos]);
   };
+
+  const done = () => todoData.filter((todo) => todo.status == "NOT DONE");
+
   // const getNext = setTodoData.filter( nXt => {
   //     return nXt.status == "NOT DONE";
   // })
   // console.log(getNext);
 
-    // setTodoData([...todos]);
-
-
+  // setTodoData([...todos]);
 
   return (
     <>
@@ -72,9 +79,9 @@ export default function Todo() {
         <div className="w-4/5 mx-auto py-8 flex text-white items-center text-xl">
           <div>
             <div>NEXT TASK</div>
-            {todoData.filter((todo) => todo.status == "NOT DONE").map((todo) => (<h1 className="text-6xl text-white">{todo.label}</h1>))}
+            <h1 className="text-6xl text-white">{done().length ? done()[0].label : "All Task Completed"}</h1>
           </div>
-          <div className="opacity-50 text-right flex-grow pt-8">NOT DONE</div>
+          <div className="opacity-50 text-right flex-grow pt-8">{done().length ? "NOT DONE" : ""}</div>
         </div>
       </section>
 
@@ -102,7 +109,7 @@ export default function Todo() {
             {todoData
               .filter((todo) => todo.status == "DONE")
               .map((todo) => (
-                <TodoCard key={todo.id} label={todo.label} status={todo.status} onClick={() => unmark(todo.id)}/>
+                <TodoCard key={todo.id} label={todo.label} status={todo.status} onClick={() => unmark(todo.id)} />
               ))}
           </section>
         </div>
@@ -114,8 +121,8 @@ export default function Todo() {
             <div onClick={() => setShowPopup(false)} className="absolute h-full w-full " />
 
             <div className="absolute h-72 w-96 bg-white rounded-lg left-[50%] top-[50%] -ml-48 -mt-36">
-            
               <form onSubmit={submitHandler} className="p-12 grid gap-6">
+                {msg ? <div className="py-2 text-center bg-red-200 text-red-800 border border-red-500">{msg}</div> : <></>}
                 <h3 className="text-4xl">Add Task</h3>
                 <input type="text" name="todo" className="block border border-gray-300 text-2xl py-2 px-2" />
                 <button className="bg-red-700 text-white py-3 px-5 rounded-lg inline-block">Add Task</button>
