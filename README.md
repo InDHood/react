@@ -31,6 +31,30 @@ _Todo_
 
 ---
 
+## Simulating a server with JSON Server NPM
+
+- Install globally `npm install -g json-server`
+- create a json file to store your data, e.g db.json in the format below
+
+```
+{
+  "posts": [
+    { "id": 1, "title": "json-server", "author": "typicode" }
+  ],
+  "comments": [
+    { "id": 1, "body": "some comment", "postId": 1 }
+  ],
+  "profile": { "name": "typicode" }
+}
+
+```
+
+- navigate to location, then start server with
+
+`json-server --watch db.json`
+
+for more info go to https://www.npmjs.com/package/json-server
+
 ---
 
 ---

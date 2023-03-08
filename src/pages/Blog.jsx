@@ -1,89 +1,58 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Card from "../components/Card";
 import UserCard from "../components/UserCard";
 
 export default function Blog() {
   const [users, setUsers] = useState([]);
+  const [products, setProducts] = useState([]);
+  const [posts, setPosts] = useState([]);
 
-  let getUser = () => {
-    let url = "http://cronusweb.com:8426/users";
+  let baseUrl = import.meta.env.VITE_API;
 
-    let users = fetch(url)
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("THE DATA", data);
-        setUsers(data);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
+  let getUsers = async () => {
+    if (users.length) return;
+    // fetch(baseUrl + "users")
+    //   .then((response) => {
+    //     return response.json();
+    //   })
+    //   .then((data) => {
+    //     console.log("THE DATA", data);
+    //     data.length ? setUsers(data) : "";
+    //   })
+    //   .catch((error) => {
+    //     console.error("Error:", error);
+    //   });
 
-    console.log("HEY....");
+    let data = await fetch(baseUrl + "users");
+    data = await data.json();
+    setUsers(data);
   };
 
-  let products = [
-    {
-      id: 1,
-      title: "NY City",
-      price: 529.99,
-      imglink: "https://picsum.photos/1420/510",
-    },
-    {
-      id: 2,
-      title: "Jo City",
-      price: 145.49,
-      imglink: "https://picsum.photos/1400/500",
-    },
-    {
-      id: 3,
-      title: "LA Ville",
-      price: 200,
-      imglink: "https://picsum.photos/1410/510",
-    },
-    {
-      id: 4,
-      title: "Lagos City",
-      price: 129.99,
-      imglink: "https://picsum.photos/1430/530",
-    },
-    {
-      id: 5,
-      title: "Hawaii City",
-      price: 229.99,
-      imglink: "https://picsum.photos/1440/540",
-    },
-    {
-      id: 6,
-      title: "Ijebu City",
-      price: 125,
-      imglink: "https://picsum.photos/450/500",
-    },
-    {
-      id: 7,
-      title: "Ikoyi City",
-      price: 109.99,
-      imglink: "https://picsum.photos/1460/520",
-    },
-    {
-      id: 8,
-      title: "Kenya City",
-      price: 199.99,
-      imglink: "https://picsum.photos/1400/500",
-    },
-    {
-      id: 9,
-      title: "Rwanda City",
-      price: 129.99,
-      imglink: "https://picsum.photos/1420/570",
-    },
-    {
-      id: 10,
-      title: "London City",
-      price: 59.99,
-      imglink: "https://picsum.photos/1415/515",
-    },
-  ];
+  // getUser()
+
+  let getProducts = async () => {
+    let data = await fetch(baseUrl + "products");
+    data = await data.json();
+    setProducts(data);
+  };
+
+  let getPosts = async () => {
+    if (!users.length) return;
+    let data = await fetch(baseUrl + "posts");
+    data = await data.json();
+    data = data.map((d) => ({
+      ...d,
+      user: users.filter((user) => user.id == d.author)[0],
+    }));
+    setPosts(data);
+  };
+
+  useEffect(() => {
+    getUsers();
+    getProducts();
+    getPosts();
+  }, [users]);
 
   return (
     <>
@@ -94,18 +63,20 @@ export default function Blog() {
       </section>
       <main className="bg-gray-300 min-h-96">
         <div className="mx-auto w-4/5 py-6">
-          <a onClick={() => getUser()}>Get Users</a>
+          <a onClick={() => getUsers()}>Get Users</a>
         </div>
 
-        <div className="mx-auto w-4/5 my-12">
+        <pre className="text-xs">{JSON.stringify(posts, undefined, 2)}</pre>
+
+        <div className="mx-auto w-4/5 my-6">
           <div className="grid grid-cols-2 gap-12 py-12">
-            {users.map((user) => (
+            {users?.map((user) => (
               <UserCard key={user.id} id={user.id} name={user.name} email={user.email} phone={user.phone} photo={user.photo} />
             ))}
           </div>
         </div>
 
-        <div className="mx-auto w-4/5 my-12">
+        <div className="mx-auto w-4/5 my-6">
           <div className="grid grid-cols-3 gap-12 py-12">
             {products.map((product) => (
               <Card key={product.id} id={product.id} title={product.title} price={product.price} imglink={product.imglink} />

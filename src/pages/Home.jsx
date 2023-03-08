@@ -1,70 +1,19 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Card from "../components/Card";
 
 function Home() {
-  let products = [
-    {
-      id: 1,
-      title: "NY City",
-      price: 529.99,
-      imglink: "https://picsum.photos/1420/510",
-    },
-    {
-      id: 2,
-      title: "Jo City",
-      price: 145.49,
-      imglink: "https://picsum.photos/1400/500",
-    },
-    {
-      id: 3,
-      title: "LA Ville",
-      price: 200,
-      imglink: "https://picsum.photos/1410/510",
-    },
-    {
-      id: 4,
-      title: "Lagos City",
-      price: 129.99,
-      imglink: "https://picsum.photos/1430/530",
-    },
-    {
-      id: 5,
-      title: "Hawaii City",
-      price: 229.99,
-      imglink: "https://picsum.photos/1440/540",
-    },
-    {
-      id: 6,
-      title: "Ijebu City",
-      price: 125,
-      imglink: "https://picsum.photos/450/500",
-    },
-    {
-      id: 7,
-      title: "Ikoyi City",
-      price: 109.99,
-      imglink: "https://picsum.photos/1460/520",
-    },
-    {
-      id: 8,
-      title: "Kenya City",
-      price: 199.99,
-      imglink: "https://picsum.photos/1400/500",
-    },
-    {
-      id: 9,
-      title: "Rwanda City",
-      price: 129.99,
-      imglink: "https://picsum.photos/1420/570",
-    },
-    {
-      id: 10,
-      title: "London City",
-      price: 59.99,
-      imglink: "https://picsum.photos/1415/515",
-    },
-  ];
+  const [products, setProducts] = useState([]);
+
+  let getProducts = async () => {
+    let products = await fetch(import.meta.env.VITE_API + "products");
+    products = await products.json();
+    setProducts(products);
+  };
+
+  useEffect(() => {
+    getProducts();
+  }, []);
 
   return (
     <>
