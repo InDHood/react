@@ -16,10 +16,10 @@ and follow the instructions [here](https://tailwindcss.com/docs/guides/vite#reac
 
 _Todo_
 
-- Next Task
+- Next Task ---DONE
 - Avoid Repition of Tasks on Task Creation
-- Undo Completed Task
-- Make the check circle the clickable part
+- Undo Completed Task ---DONE
+- Make the check circle the clickable part ---DONE
 - Implement Vue version
 
 ## Up Next

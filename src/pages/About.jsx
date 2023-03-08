@@ -43,7 +43,7 @@ function About() {
       nickname: "Chux",
       address: {
         street: "234, London Close,",
-        city: "Milan City",
+        city:{ red: "Milan", blue: "Inter"},
         country: "Italy",
       },
     },
@@ -61,6 +61,65 @@ function About() {
 
   //
   // Maps
+
+  let playerToScore = [
+    {
+      pid: 9,
+      name: "Giroud",
+    },
+    {
+      pid: 7,
+      name: "Saka",
+    },
+    {
+      pid: 9,
+      name: "Haaland",
+    },
+    {
+      pid: 7,
+      name: "Mbappe",
+    },
+    {
+      pid: 9,
+      name: "Osihmen",
+    },
+    {
+      pid: 10,
+      name: "Kane",
+    },
+    {
+      pid: 9,
+      name: "Lacazette",
+    },
+    {
+      pid: 10,
+      name: "L. Martinez",
+    },
+    {
+      pid: 9,
+      name: "Lewandoski",
+    },
+    {
+      pid: 9,
+      name: "Ben Yedder",
+    },
+  ]
+
+  let players = playerToScore.map(player => ({ playername: player.name}));
+
+  function pstatus(pst) { 
+    pst.status = "pending";
+    return pst;
+  }
+
+  let psta = playerToScore.map(pstatus);
+
+  let scored = psta.map(ps => { ps.status = ps.name == "Osihmen"? "Scored" : "Did Not Score";
+    return ps;
+  });
+  let filtap = playerToScore.filter((pts) => pts.name=="Osihmen");
+
+
   function mm(obj) {
     obj.date = "2022-02-22";
     return obj;
@@ -107,7 +166,8 @@ function About() {
             </div>
             <div>Array of Array - Get 7: {array_array[1][1]}</div>
             <div>Array of Object - Get Arinze Movie: {array_obj[2].movie}</div>
-            <div>Array of Object, Obj - Get Chux City: {array_obj_obj[0].address.city}</div>
+            <div>Array of Object, Obj - Get Chux City: {array_obj_obj[0].address.city.red}</div>
+            <div>Array of Object, Obj - Get Rival City: {array_obj_obj[0].address.city.blue}</div>
           </div>
 
           <div className="pb-8 mb-8 border-b border-gray-500">
@@ -133,6 +193,12 @@ function About() {
               MapY <br />
               {JSON.stringify(mapy)}
             </div>
+            <div>
+            Players to Score <br />
+              {JSON.stringify(players)}<br />
+              {JSON.stringify(psta)}<br />
+              {JSON.stringify(scored)}<br />
+            </div>
           </div>
 
           <div className="pb-8 mb-8 border-b border-gray-500">
@@ -140,6 +206,7 @@ function About() {
 
             <div>
               Filta <br />
+              {JSON.stringify(filtap)}<br />
               {JSON.stringify(filta)}
             </div>
             <div>
