@@ -42,10 +42,16 @@ export default function Todo() {
       status: "NOT DONE",
     };
 
+    
+
+    //Avoid duplicate Task Entry
     let check = todoData.filter((todo) => todo.label == newData.label);
     if (check.length) {
       setMsg("Task already exist");
       return;
+    }else if(newData.label == "") {
+      setMsg("Please input a Task");
+      return
     }
 
     setTodoData([...todoData, newData]);
@@ -55,16 +61,23 @@ export default function Todo() {
     // console.log(e.target[0].value);
   };
 
+  //Mark Completed Task
   const mark = (id) => {
     let todos = todoData.map((t) => ({ ...t, status: t.id == id ? "DONE" : t.status }));
     setTodoData([...todos]);
   };
+
+  //Unmark Completed Task
   const unmark = (id) => {
     let todos = todoData.map((t) => ({ ...t, status: t.id == id ? "NOT DONE" : t.status }));
     setTodoData([...todos]);
   };
 
-  const done = () => todoData.filter((todo) => todo.status == "NOT DONE");
+  //Filters through to check Undone Status. This is used for the Next Task not done
+  const undone = () => todoData.filter((todo) => todo.status == "NOT DONE");
+
+  //Filters through to check Done Status. This is used for the Next Task not done
+  const done = () => todoData.filter((todo) => todo.status == "DONE");
 
   // const getNext = setTodoData.filter( nXt => {
   //     return nXt.status == "NOT DONE";
@@ -79,9 +92,9 @@ export default function Todo() {
         <div className="w-4/5 mx-auto py-8 flex text-white items-center text-xl">
           <div>
             <div>NEXT TASK</div>
-            <h1 className="text-6xl text-white">{done().length ? done()[0].label : "All Task Completed"}</h1>
+            <h1 className="text-6xl text-white">{undone().length ? undone()[0].label : "All Task Completed"}</h1>
           </div>
-          <div className="opacity-50 text-right flex-grow pt-8">{done().length ? "NOT DONE" : ""}</div>
+          <div className="opacity-50 text-right flex-grow pt-8">{undone().length ? "You have " + undone().length + " Task to complete" : ""}</div>
         </div>
       </section>
 
@@ -105,7 +118,7 @@ export default function Todo() {
 
           {/* Task Section */}
           <section className="my-16">
-            <div>COMPLETED</div>
+            <div>YOU HAVE COMPLETED { done().length } TASK(S)</div>
             {todoData
               .filter((todo) => todo.status == "DONE")
               .map((todo) => (

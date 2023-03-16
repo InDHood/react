@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import BlogPost from "../components/BlogPost";
 import Card from "../components/Card";
 import UserCard from "../components/UserCard";
 
@@ -53,6 +53,7 @@ export default function Blog() {
     getProducts();
     getPosts();
   }, [users]);
+        <pre className="text-xs">{JSON.stringify(posts, undefined, 2)}</pre>
 
   return (
     <>
@@ -80,6 +81,14 @@ export default function Blog() {
           <div className="grid grid-cols-3 gap-12 py-12">
             {products.map((product) => (
               <Card key={product.id} id={product.id} title={product.title} price={product.price} imglink={product.imglink} />
+            ))}
+          </div>
+        </div>
+
+        <div className="mx-auto w-4/5 my-6">
+          <div className="grid grid-cols-3 gap-12 py-12">
+            {posts.map((post) => (
+              <BlogPost key={post.id} id={post.id} title={post.title} date={post.date} image={post.image} photo={post.photo} author={post.user}  />
             ))}
           </div>
         </div>

@@ -1,4 +1,4 @@
-let baseUrl = "http://cronusweb.com:8428/"; // "http://localhost:3000/
+let baseUrl = "http://localhost:3000/"; 
 
 export const allProducts = () => {
   let status = "loading";

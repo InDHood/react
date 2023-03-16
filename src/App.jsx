@@ -9,6 +9,7 @@ import Contact from "./pages/Contact";
 import Todo from "./pages/Todo";
 import Product from "./pages/Product";
 import Blog from "./pages/Blog";
+import SinglePost from "./pages/SinglePost";
 import NoPage from "./pages/404";
 
 export default function App() {
@@ -22,6 +23,7 @@ export default function App() {
           <Route path="todo" element={<Todo />} />
           <Route path="blog" element={<Blog />} />
           <Route path="product/:id" element={<Product />} />
+          <Route path="singlepost/:id" element={<SinglePost />} />
           <Route path="*" element={<NoPage />} />
         </Route>
       </Routes>

@@ -67,12 +67,12 @@ function Product() {
 
   let { id } = useParams();
 
-  function p() {
-    // find in array where id = params.id
-    let filtered_array = products.filter((product) => product.id == id);
-    // return first array object
-    return filtered_array[0];
-  }
+  // function p() {
+  //   // find in array where id = params.id
+  //   let filtered_array = products.filter((product) => product.id == id);
+  //   // return first array object
+  //   return filtered_array[0];
+  // }
 
   // Optimised one
   const pp = products.filter((product) => product.id == id)[0];
