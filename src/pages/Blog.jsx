@@ -53,7 +53,7 @@ export default function Blog() {
     getProducts();
     getPosts();
   }, [users]);
-        <pre className="text-xs">{JSON.stringify(posts, undefined, 2)}</pre>
+  <pre className="text-xs">{JSON.stringify(posts, undefined, 2)}</pre>;
 
   return (
     <>
@@ -65,6 +65,14 @@ export default function Blog() {
       <main className="bg-gray-300 min-h-96">
         <div className="mx-auto w-4/5 py-6">
           <a onClick={() => getUsers()}>Get Users</a>
+        </div>
+
+        <div className="mx-auto w-4/5 my-6">
+          <div className="grid grid-cols-3 gap-12 py-12">
+            {posts.map((post) => (
+              <BlogPost data={post} key={post.id} />
+            ))}
+          </div>
         </div>
 
         <pre className="text-xs">{JSON.stringify(posts, undefined, 2)}</pre>
@@ -81,14 +89,6 @@ export default function Blog() {
           <div className="grid grid-cols-3 gap-12 py-12">
             {products.map((product) => (
               <Card key={product.id} id={product.id} title={product.title} price={product.price} imglink={product.imglink} />
-            ))}
-          </div>
-        </div>
-
-        <div className="mx-auto w-4/5 my-6">
-          <div className="grid grid-cols-3 gap-12 py-12">
-            {posts.map((post) => (
-              <BlogPost key={post.id} id={post.id} title={post.title} date={post.date} image={post.image} photo={post.photo} author={post.user}  />
             ))}
           </div>
         </div>
