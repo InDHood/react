@@ -29,7 +29,7 @@ export default function Blog() {
     setUsers(data);
   };
 
-  // getUser()
+  // getProducts()
 
   let getProducts = async () => {
     let data = await fetch(baseUrl + "products");

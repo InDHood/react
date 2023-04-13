@@ -164,5 +164,22 @@
       "price": 59.99,
       "imglink": "https://picsum.photos/1415/515"
     }
+  ],
+  "todos" : [
+    {
+      "id": 1,
+      "label": "Buy Food",
+      "status": "DONE"
+    },
+    {
+      "id": 2,
+      "label": "Buy Gas and Fuel",
+      "status": "DONE"
+    },
+    {
+      "id": 3,
+      "label": "Buy Groceries",
+      "status": "NOT DONE"
+    }
   ]
 }

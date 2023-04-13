@@ -38,7 +38,7 @@ export default function SinglePost() {
   let { id } = useParams();
 
   const pt = posts.filter((post) => post.id == id)[0];
-  console.log({ pt });
+  // console.log({ pt });
 
   return (
     <>
@@ -49,12 +49,13 @@ export default function SinglePost() {
               <div className="-mb-96 bg-gray-900 text-white bg-opacity-60 py-10 px-8">
                 <h1 className="text-6xs ">{pt.date}</h1>
                 <h1 className="text-9xl ">{pt.title}</h1>
+                <h1 className="text-6xs ">written by {pt.user.name}</h1><img src="{pt.user.photo}" alt="" />
               </div>
             </div>
           </section>
-          <main className="bg-gray-900 min-h-96">
+          <main className="bg-white min-h-96">
             <div className="mx-auto w-4/5 h-auto">
-              <div className="grid grid-cols-3 gap-12 py-12">{pt.content}</div>
+              <div className="py-48">{pt.content}</div>
             </div>
           </main>
         </>
